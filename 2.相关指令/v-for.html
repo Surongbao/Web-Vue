@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <!-- <li v-for="(user, index) in users">
+        {{ user }} - {{ index }}
+      </li> -->
+
+      <!-- <li v-for="(value, key, index) in user">
+        {{ value }} - {{ key }} - {{ index }}
+      </li> -->
+
+      <!-- <li v-for="(n, index) in 10">
+        {{ n }} - {{ index }}
+      </li> -->
+
+      <!-- <li v-for="(str, index) in 'kevin'">
+        {{ str }} - {{ index }}
+      </li> -->
+
+      <!-- <template v-for="(value, key) in user">
+        <li>{{ key }}</li>
+        <span>{{ value }}</span>
+      </template> -->
+
+      <!-- <template v-for="item in items">
+        <li>{{ item }}</li>
+        <span>Lorem, ipsum dolor.</span>
+        <hr>
+      </template> -->
+
+      <li v-for="(item, index) in items" :key="item">
+        {{ item }}
+        <input type="text">
+        <button @click="handle(index)">移动</button>
+      </li>
+
+    </ul>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        // users: ['阿大', '阿二', '阿三'],
+        user: {
+          name: 'kevin',
+          age: 18,
+          gender: 'male'
+        },
+        items: ['HTML', 'CSS', 'JS', 'Vue', 'React']
+      },
+      methods: {
+        handle(i) {
+          const delItem = this.items.splice(i, 1);
+          this.items.splice(i + 1, 0, ...delItem)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

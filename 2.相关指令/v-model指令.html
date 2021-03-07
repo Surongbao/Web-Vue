@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <input type="text" v-model="msg" />
+      <textarea v-model="msg"></textarea> -->
+
+      <!-- <label> <input type="checkbox" v-model="checked" />kevin </label> -->
+
+      <!-- <label>
+        <input type="checkbox" value="张三" v-model="checkList" />张三
+      </label>
+      <label>
+        <input type="checkbox" value="李四" v-model="checkList" />李四
+      </label>
+      <label>
+        <input type="checkbox" value="王五" v-model="checkList" />王五
+      </label> -->
+
+      <!-- <label> <input type="radio" value="男" v-model="picked" />男 </label>
+      <label> <input type="radio" value="女" v-model="picked" />女 </label> -->
+
+      <!-- <select v-model="select">
+        <option value="请选择" disabled>请选择</option>
+        <option value="张三">张三</option>
+        <option value="李四">李四</option>
+        <option value="王五">王五</option>
+      </select> -->
+
+      <!-- <select v-model="selectList" multiple>
+        <option value="张三">张三</option>
+        <option value="李四">李四</option>
+        <option value="王五">王五</option>
+      </select> -->
+
+      <!-- <input type="text" v-model.lazy="msg" />{{msg}} -->
+      <!-- <input type="text" v-model.number="msg" />{{ typeof msg}} -->
+
+      <input type="text" v-model.trim="msg" />{{ msg }}
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "",
+          checked: true,
+          checkList: [],
+          picked: "",
+          // select: "请选择",
+          selectList: [],
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <cmp-a></cmp-a>
+      <cmp-b></cmp-b>
+    </div>
+
+    <script>
+      Vue.prototype.$bus = new Vue();
+
+      Vue.component("cmp-a", {
+        data() {
+          return {
+            name: "kevin",
+          };
+        },
+
+        methods: {
+          handleClick() {
+            this.$bus.$emit("click", this.name);
+          },
+        },
+
+        template: `
+          <button @click="handleClick">点击</button>
+        `,
+      });
+
+      Vue.component("cmp-b", {
+        mounted() {
+          this.$bus.$on("click", (data) => {
+            console.log(data);
+          });
+        },
+        template: `
+          <div></div>
+        `,
+      });
+
+      const vm = new Vue({
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button v-for="post in posts" :key="post.id" @click="showCmp = post.cmp">
+        {{ post.title }}
+      </button>
+      <keep-alive>
+        <component :is="showCmp"></component>
+      </keep-alive>
+    </div>
+
+    <script>
+      Vue.component("cmp-post", {
+        data() {
+          return {
+            cmp: undefined,
+            posts: [
+              {
+                title: "标题1",
+                content: { template: `<div>内容1</div>` },
+                id: 10,
+              },
+              {
+                title: "标题2",
+                content: { template: `<div>内容2</div>` },
+                id: 20,
+              },
+              {
+                title: "标题3",
+                content: { template: `<div>内容3</div>` },
+                id: 30,
+              },
+            ],
+          };
+        },
+
+        created() {
+          this.cmp = this.posts[0].content;
+        },
+
+        template: `
+          <div>
+            <button
+              v-for="post in posts"
+              :key="post.id"
+              @click="cmp = post.content"
+            >{{ post.title }}</button>
+            <component :is="this.cmp"></component>
+          </div>
+        `,
+
+        // template: `
+        //   <div>post</div>
+        // `,
+      });
+
+      Vue.component("cmp-more", {
+        template: `
+          <div>more</div>
+        `,
+      });
+
+      const mv = new Vue({
+        el: "#app",
+        data: {
+          showCmp: "cmp-post",
+          posts: [
+            { title: "博客", cmp: "cmp-post", id: 0 },
+            { title: "更多", cmp: "cmp-more", id: 1 },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>

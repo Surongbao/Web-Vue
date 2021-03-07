@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div>{{ msg | myFilter(100) }}</div> -->
+      <!-- <div>{{ msg | filterA('aaa') | filterB('bbb') }}</div> -->
+      <div>{{ msg | filterCamel}}</div>
+      <div>{{ money | toMoney }}</div>
+      <div>{{ number | filterNumber }}</div>
+    </div>
+
+    <script>
+      // Vue.filter("myFilter", (val, params) => {
+      //   console.log(val, params);
+      //   return val.charAt(0).toUpperCase() + val.slice(1);
+      // });
+
+      Vue.filter("filterNumber", (number) => {
+        return (number / 10000).toFixed(1) + "万";
+      });
+
+      Vue.filter("toMoney", (money) => {
+        console.log(money);
+        return money.toLocaleString();
+      });
+
+      Vue.filter("filterCamel", (value) => {
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      });
+
+      Vue.filter("filterA", (value) => {
+        console.log(value);
+        return "AAA";
+      });
+
+      Vue.filter("filterB", (value) => {
+        console.log(value);
+        return "BBB";
+      });
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello",
+          money: 5873897593841,
+          number: 824085,
+        },
+
+        // filters: {
+        //   myFilter(val) {
+        //     return val.charAt(0).toUpperCase() + val.slice(1);
+        //   },
+        // },
+      });
+    </script>
+  </body>
+</html>

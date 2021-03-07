@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">{{ msg }}</div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello vue",
+        },
+
+        methods: {
+          handle() {
+            console.log("handle");
+          },
+        },
+
+        beforeCreate() {
+          console.log("-------beforeCreate----------");
+          console.log(this.msg);
+          console.log(this.handle);
+        },
+
+        created() {
+          console.log("-------created----------");
+          console.log(this.msg);
+          this.handle();
+          console.log(this.$el);
+        },
+
+        beforeMount() {
+          console.log("-------beforeMount----------");
+          console.log(this.$el);
+        },
+
+        mounted() {
+          console.log("-------mounted----------");
+          console.log(this.$el);
+        },
+
+        beforeUpdate() {
+          console.log("-------beforeUpdate----------");
+          console.log(this.msg);
+          console.log(this.$el.outerHTML);
+        },
+
+        updated() {
+          console.log("------updated------");
+          console.log(this.msg);
+          console.log(this.$el.outerHTML);
+        },
+      });
+
+      vm.msg = "Hello World";
+    </script>
+  </body>
+</html>

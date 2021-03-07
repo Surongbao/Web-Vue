@@ -1,0 +1,3 @@
+export const COUNT_ADD_MUTATION = "COUNT_ADD_MUTATION";
+export const CHANGE_OBJ = "CHANGE_OBJ";
+export const UPDATE_VALUE = "UPDATE_VALUE";

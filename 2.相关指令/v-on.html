@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <button v-on:click="content++">点击</button> -->
+    <!-- <button v-on:click="addContent">点击</button> -->
+    <!-- <button v-on:[type]="content++">点击</button>
+    <p>{{content}}</p> -->
+
+    <!-- <button v-on="{
+      click: handleClick,
+      mouseenter: enter,
+      mouseleave: leave
+    }">按钮</button> -->
+
+    <!-- <div :style="{backgroundColor: 'red'}" @click="handleClick('div')">
+      <button @click.stop="handleClick('button')">点击</button>
+    </div> -->
+
+    <!-- <form @submit.prevent="onSubmit">
+      <button type="submit">提交</button>
+    </form> -->
+
+    <!-- <div @click.capture="handleClick('div')" :style="{backgroundColor: 'red'}">
+      <button @click="handleClick('button')">点击</button>
+    </div> -->
+
+    <!-- <div @click.self="handleClick('div')" :style="{backgroundColor: 'red'}">
+      <button @click="handleClick('button')">点击</button>
+    </div> -->
+
+    <!-- <div @click.once="handleClick('div')" :style="{backgroundColor: 'red'}">
+      <button @click="handleClick('button')">点击</button>
+    </div> -->
+
+
+
+    <!-- <input type="text" @keydown.enter="handleInput"> -->
+    <!-- <input type="text" @keydown.13="handleInput"> -->
+    <!-- <input type="text" @keydown.arrow-down.enter="handleInput"> -->
+
+    <!-- <input type="text" @keyup.fdsjku-fdshuy="handleInput"> -->
+
+    <!-- <input type="text" @keyup.alt="handleInput"> -->
+    <!-- <input type="text" @keyup.ctrl="handleInput"> -->
+    <!-- <input type="text" @keyup.shift="handleInput"> -->
+    <!-- <input type="text" @keyup.meta="handleInput"> -->
+
+    <!-- <input type="text" @keyup.alt.exact="handleInput"> -->
+    <!-- <input type="text" @keyup.exact="handleInput"> -->
+
+    <div @click.right.prevent="handleClick">点击</div>
+
+  </div>
+
+  <script>
+    Vue.config.keyCodes = {
+      'fdsjku-fdshuy': 32
+    }
+
+    const vm = new Vue({
+      el: '#app',
+      methods: {
+        handleInput(e) {
+          console.log(e.keyCode);
+        },
+        onSubmit() {
+          console.log('提交');
+        },
+        handleClick(value) {
+          console.log(`${value}被点击了`);
+        },
+        // enter() {
+        //   console.log('鼠标移入了');
+        // },
+        // leave() {
+        //   console.log('移出了');
+        // }
+      }
+    })
+  </script>
+</body>
+
+</html>

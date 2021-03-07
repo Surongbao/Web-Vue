@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="../vue.js"></script>
+  <div id="app">
+    {{ msg }}
+    {{ 1 }}
+    {{ '第一个vue程序' }}
+    {{ [1, 2, 3, 'a', 'b'] }}
+    {{ { name: 'kevin', age: 18 } }}
+    {{ true }}
+    {{ false }}
+    {{ 0 }}
+    {{ !0 }}
+    {{ undefined }}
+    {{ 1 + 1 === 2 ? '对了' : "错了" }}
+    {{ null }}
+    {{ function(){console.log(123)} }}
+  </div>
+
+  <div id="app1">
+    {{ msg }}
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello vue'
+      },
+    })
+
+    vm.$mount('#app1')
+  </script>
+</body>
+
+</html>

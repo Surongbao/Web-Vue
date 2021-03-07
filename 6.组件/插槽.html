@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <my-slot>
+        组件内容
+        <div>div元素</div>
+        {{ msg }}
+      </my-slot> -->
+
+      <!-- <my-slot>点击</my-slot> -->
+
+      <!-- <name-slot>
+        <template v-slot:header>
+          <h1>头部</h1>
+        </template>
+        <template v-slot:default>
+          <p>主要内容</p>
+        </template>
+        <template v-slot:footer>
+          <div>底部</div>
+        </template>
+      </name-slot> -->
+
+      <!-- <my-slot>
+        <template #user="slotProps"> {{ slotProps }}</template>
+        <template #default="slotProps">{{ slotProps }}</template>
+      </my-slot> -->
+
+      <!-- <my-slot v-slot:user="slotProps"> {{ slotProps.user.name }} </my-slot> -->
+      <my-slot>
+        <template
+          v-slot:user="{ user: { name = 'steven', age = 18, gender='male' } }"
+        >
+          {{ name }} {{ age }} {{ gender }}
+        </template>
+      </my-slot>
+    </div>
+
+    <script>
+      Vue.component("my-slot", {
+        data() {
+          return {
+            user: {
+              name: "kevin",
+              age: 28,
+            },
+          };
+        },
+
+        template: `
+          <div>
+            <slot name="user" :user="user"></slot>  
+          </div>
+        `,
+      });
+
+      // Vue.component("my-slot", {
+      //   data() {
+      //     return {
+      //       user: {
+      //         name: "kevin",
+      //         age: 18,
+      //         gender: "male",
+      //       },
+      //       person: {
+      //         name: "steven",
+      //         age: 19,
+      //       },
+      //     };
+      //   },
+
+      //   template: `
+      //     <div>
+      //       <div class="header">
+      //         <slot name="user" :user="user"></slot>
+      //       </div>
+      //       <div>
+      //         <slot :person="person"></slot>
+      //       </div>
+      //     </div>
+      //   `,
+      // });
+
+      // Vue.component("name-slot", {
+      //   template: `
+      //     <div>
+      //       <div class="header">
+      //         <slot name="header"></slot>
+      //       </div>
+      //       <div class="content">
+      //         <slot></slot>
+      //       </div>
+      //       <div class="footer">
+      //         <slot name="footer"></slot>
+      //       </div>
+      //     </div>
+      //   `,
+      // });
+
+      // Vue.component("my-slot", {
+      //   template: `
+      //     <button>
+      //       <slot>提交</slot>
+      //     </button>
+      //   `,
+
+      //   // template: `
+      //   //   <div>
+      //   //     <slot></slot>
+      //   //     xxx
+      //   //     <slot></slot>
+      //   //   </div>
+      //   // `,
+      // });
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "父作用域",
+        },
+      });
+    </script>
+  </body>
+</html>

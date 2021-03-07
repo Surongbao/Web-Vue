@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="app"></div>
+
+  <script>
+    const data = {
+      user: {
+        name: 'kevin',
+        age: 18
+      },
+      arr: [1, 2, 3, 4, 5]
+    }
+
+    // 数组变异方法
+    const arrayProto = Array.prototype;
+    const cloneArrayProto = Object.create(arrayProto);
+    ["push", "pop", "shift", "unshift", "sort", "splice", "reverse"].forEach(item => {
+      cloneArrayProto[item] = function () {
+        arrayProto[item].call(this, ...arguments)
+        render();
+        return this.length
+      }
+    })
+
+    // set 方法
+    function $set(target, key, value) {
+      if (Array.isArray(target)) {
+        target.splice(key, 1, value)
+        return value
+      }
+
+      defineReactive(target, key, value)
+      render();
+      return value
+    }
+
+    // delete 方法
+    function $delete(target, key) {
+      if (Array.isArray(target)) {
+        const result = target.splice(key, 1)
+        return result
+      }
+
+      target[key] = undefined
+      delete target[key]
+    }
+
+
+
+    // 页面渲染
+    function render() {
+      console.log('页面重新渲染');
+    }
+
+    // 观察者
+    function observer(data) {
+      if (Array.isArray(data)) {
+        data.__proto__ = cloneArrayProto;
+        return;
+      }
+
+      if (typeof data === 'object') {
+        for (const key in data) {
+          defineReactive(data, key, data[key])
+        }
+      }
+    }
+
+    // 监听属性的变化
+    function defineReactive(data, key, value) {
+      observer(value)
+      Object.defineProperty(data, key, {
+        get() {
+          return value
+        },
+        set(val) {
+          if (val === value) {
+            return
+          }
+          value = val;
+          render()
+        }
+      })
+    }
+
+    observer(data)
+  </script>
+</body>
+
+</html>

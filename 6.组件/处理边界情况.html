@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <my-cmp> </my-cmp>
+    </div>
+
+    <script>
+      Vue.component("my-cmp", {
+        data() {
+          return {
+            count: 2,
+          };
+        },
+        template: `
+          <div> 
+            <my-cmp 
+                  
+            />
+          </div>
+        `,
+
+        updated() {
+          console.log(this.count);
+        },
+      });
+
+      Vue.component("cmp-a", {
+        template: `
+          <div><slot></slot></div>
+        `,
+      });
+      Vue.component("cmp-a-b", {
+        data() {
+          return {
+            person: {
+              name: "kevin",
+              age: 18,
+            },
+          };
+        },
+
+        inject: ["user"],
+        mounted() {
+          console.log(this.user.name, this.user.age);
+          // console.log(this.$root.msg);
+        },
+        template: `
+          <div></div>
+        `,
+      });
+
+      const vm = new Vue({
+        el: "#app",
+
+        mounted() {
+          // console.log(this.$refs.inp.value);
+          console.log(this.$refs);
+        },
+        data: {
+          msg: "12321",
+        },
+      });
+    </script>
+  </body>
+</html>

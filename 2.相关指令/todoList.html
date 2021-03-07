@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      h2 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0;
+      }
+
+      h2 .mask-num {
+        height: 20px;
+        padding: 0 5px;
+        border-radius: 20px;
+        background-color: #e6e6fa;
+        color: #666;
+        font-size: 14px;
+      }
+
+      body {
+        background-color: #cdcdcd;
+      }
+
+      .container {
+        width: 600px;
+        margin: 0 auto;
+        padding: 0 10px;
+      }
+
+      .header {
+        height: 50px;
+        background-color: #333;
+      }
+
+      .header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .header .container .logo {
+        width: 100px;
+        line-height: 50px;
+        color: #ddd;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .header .container .input-area {
+        width: 60%;
+      }
+
+      .header .container .input-area input {
+        width: 80%;
+        height: 24px;
+        text-indent: 10px;
+        border-radius: 5px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24),
+          0 1px 6px rgba(0, 0, 0, 0.45) inset;
+        border: none;
+        outline: none;
+      }
+
+      .header .container .input-area button {
+        width: 15%;
+        height: 24px;
+        vertical-align: center;
+      }
+
+      .mask-list li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 32px;
+        line-height: 32px;
+        margin-bottom: 10px;
+        padding: 0 15px;
+        border-radius: 3px;
+        border-left: 5px solid #629a9c;
+        background-color: #fff;
+      }
+
+      .mask-list.complete-list li {
+        border-left-color: #999;
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header">
+        <div class="container">
+          <div class="logo">toDoList</div>
+          <div class="input-area">
+            <input type="text" :value="inputValue" @input="handleInput" />
+            <button @click="addTask">添加</button>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <h2>
+          <span>正在进行</span>
+          <span class="mask-num">{{ taskList.length }}</span>
+        </h2>
+        <ul class="mask-list">
+          <li v-for="(task, index) in taskList" :key="task.id">
+            <div>
+              <input
+                type="checkbox"
+                @change="handleChange(index, taskList, completeList)"
+              />
+              <span>{{ task.title }}</span>
+            </div>
+            <button @click="handleDelete(index, taskList)">删除</button>
+          </li>
+        </ul>
+      </div>
+      <div class="container">
+        <h2>
+          <span>已经完成</span>
+          <span class="mask-num">{{ completeList.length }}</span>
+        </h2>
+        <ul class="mask-list complete-list">
+          <li v-for="(mask, index) in completeList" :key="mask.id">
+            <div>
+              <input
+                type="checkbox"
+                @click="handleChange(index, completeList, taskList)"
+              />
+              <span>{{ mask.title }}</span>
+            </div>
+            <button @click="handleDelete(index, completeList)">删除</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          inputValue: "",
+          taskList: [],
+          completeList: [],
+          tasks: [],
+        },
+
+        methods: {
+          handleInput(e) {
+            this.inputValue = e.target.value;
+          },
+          addTask() {
+            if (this.inputValue === "") {
+              return;
+            }
+
+            if (this.tasks.includes(this.inputValue)) {
+              return;
+            }
+            this.tasks.push(this.inputValue);
+
+            this.taskList.push({
+              title: this.inputValue,
+              id: Math.floor(Math.random() * 100000000),
+            });
+            this.inputValue = "";
+          },
+
+          handleChange(index, origin, target) {
+            const delTask = origin.splice(index, 1);
+            target.push(...delTask);
+          },
+
+          handleDelete(index, origin) {
+            origin.splice(index, 1);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

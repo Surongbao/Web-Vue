@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        list-style: none;
+      }
+
+      #app {
+        position: relative;
+        width: 284px;
+        margin: 50px auto;
+      }
+
+      .username,
+      .mail {
+        width: 284px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .username input,
+      .mail input {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 10px 8px;
+        border: none;
+        outline: none;
+      }
+
+      .upload-btn,
+      .show-btn,
+      .test-btn {
+        width: 284px;
+        height: 40px;
+        margin-bottom: 10px;
+        line-height: 40px;
+        color: #fff;
+        background-color: #3f89ec;
+        border-radius: 3px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .person-list {
+        width: 284px;
+        border: 1px solid #ddd;
+        border-bottom: none;
+      }
+
+      .person {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        font-size: 12px;
+      }
+
+      .person span:first-of-type {
+        padding-right: 8px;
+        border-right: 1px solid #ddd;
+      }
+
+      .person span:last-of-type {
+        padding-left: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../vue.js"></script>
+    <script src="./axios.js"></script>
+
+    <div id="app">
+      <div class="username">
+        <input type="text" placeholder="用户名" v-model="userName" />
+      </div>
+      <div class="mail">
+        <input type="text" placeholder="邮箱" v-model="userEmail" />
+      </div>
+      <div class="upload-btn" @click="HandleUpload">上传</div>
+      <div class="show-btn" @click="handleShow">显示人物信息</div>
+      <button @click="handleCancel">取消请求</button>
+      <ul class="person-list" v-if="userList.length">
+        <li class="person" v-for="(user, index) in userList" :key="index">
+          <span>{{ user.name }}</span>
+          <span>{{ user.mail}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      axios.defaults.baseURL = "https://developer.duyiedu.com/vue";
+
+      axios.interceptors.request.use(
+        (config) => {
+          return config;
+        },
+        (error) => {
+          return Promise.reject("请求时错误");
+        }
+      );
+
+      axios.interceptors.response.use(
+        (response) => {
+          return response.data;
+        },
+        (error) => {
+          if (error.response) {
+            console.log("响应时错误", error.response);
+            if (error.response.status === 404) {
+              return Promise.reject("getturl错误");
+            }
+          } else if (error.request) {
+            console.log("请求时错误", error.request);
+            return Promise.reject("posturl错误");
+          } else {
+            return Promise.reject("请求被取消了");
+          }
+        }
+      );
+
+      const source = axios.CancelToken.source();
+
+      // axios.interceptors.request.use((config) => {
+      //   console.log(config);
+
+      //   return config;
+      // });
+
+      // const interceptor = axios.interceptors.response.use((response) => {
+      //   return response.data;
+      // });
+
+      // axios.interceptors.response.eject(interceptor);
+
+      // const instance = axios.create();
+
+      // instance.interceptors.request.use((config) => {
+      //   return config;
+      // });
+
+      // const instance = axios.create({
+      //   baseURL: "https://developer.duyiedu.com/vue",
+      // });
+
+      // const instance = axios.create();
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          userName: "",
+          userEmail: "",
+          msg: "",
+          userList: [],
+        },
+
+        methods: {
+          async HandleUpload() {
+            try {
+              const { userName, userEmail } = this;
+              const resp = await axios({
+                method: "POST",
+                url: "/setUserInfo",
+                data: {
+                  name: userName,
+                  mail: userEmail,
+                },
+              });
+
+              this.msg = resp.msg;
+            } catch (err) {
+              console.log(err);
+            }
+          },
+
+          handleCancel() {
+            source.cancel();
+          },
+
+          handleShow() {
+            axios
+              .get("/getUserInfo", {
+                cancelToken: source.token,
+              })
+              .then((resp) => {
+                console.log(resp);
+              })
+              .catch((error) => {
+                console.log(error);
+                // console.log(error.message);
+              });
+
+            // const resp = await axios({
+            //   method: "GET",
+            //   url: "/getUserInfo",
+            // });
+            // console.log(resp);
+            // const resp = await axios.get("/getUserInfo");
+            // const resp = await instance.get("/getUserInfo", {
+            //   baseURL: "https://developer.duyiedu.com/vue",
+            // });
+            // axios
+            //   .all([
+            //     axios.get("/getUserInfo"),
+            //     axios.post("/setUserInfo", {
+            //       name: "lisi",
+            //       mail: "lisi@qq.com",
+            //     }),
+            //   ])
+            //   .then(
+            //     axios.spread((getResp, setResp) => {
+            //       console.log(getResp, setResp);
+            //     })
+            //   );
+            // const { msg, data } = resp.data;
+            // this.msg = msg;
+            // this.userList = data;
+          },
+        },
+
+        watch: {
+          msg() {
+            alert(this.msg);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

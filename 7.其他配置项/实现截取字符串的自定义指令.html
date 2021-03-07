@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <input type="text" v-slice:[slicenum].number="msg" />{{msg}} -->
+
+      <div v-test="{ a: 10, b: 20 }"></div>
+    </div>
+
+    <script>
+      Vue.directive("test", {
+        bind(el, binding) {
+          console.log(binding.value.a);
+          console.log(binding.value.b);
+        },
+      });
+
+      // Vue.directive("slice", (el, binding, vnode) => {
+      //   let { value, expression, arg, modifiers } = binding;
+      //   const { context } = vnode;
+      //   arg = arg || 3;
+      //   if (modifiers.number) {
+      //     value = value.replace(/[^0-9]/g, "");
+      //   }
+
+      //   const newValue = value.slice(0, arg);
+      //   el.value = newValue;
+      //   context[expression] = value.slice(0, arg);
+
+      //   el.oninput = function () {
+      //     let value = el.value;
+      //     if (modifiers.number) {
+      //       value = value.replace(/[^0-9]/g, "");
+      //     }
+
+      //     el.value = value.slice(0, arg);
+      //     context[expression] = value.slice(0, arg);
+      //   };
+      // });
+
+      // Vue.directive("slice", {
+      //   bind(el, binding, vnode) {
+      //     let { value, expression, arg, modifiers } = binding;
+      //     const { context } = vnode;
+      //     arg = arg || 3;
+      //     if (modifiers.number) {
+      //       value = value.replace(/[^0-9]/g, "");
+      //     }
+
+      //     const newValue = value.slice(0, arg);
+      //     el.value = newValue;
+      //     context[expression] = value.slice(0, arg);
+
+      //     el.oninput = function () {
+      //       let value = el.value;
+      //       if (modifiers.number) {
+      //         value = value.replace(/[^0-9]/g, "");
+      //       }
+
+      //       el.value = value.slice(0, arg);
+      //       context[expression] = value.slice(0, arg);
+      //     };
+      //   },
+
+      //   update(el, binding, vnode) {
+      //     let { value, arg, modifiers, expression } = binding;
+      //     const { context } = vnode;
+
+      //     arg = arg || 3;
+      //     if (modifiers.number) {
+      //       value = value.replace(/[^0-9]/g, "");
+      //     }
+
+      //     const newValue = value.slice(0, arg);
+      //     el.value = newValue;
+
+      //     el.oninput = function () {
+      //       let value = el.value;
+      //       if (modifiers.number) {
+      //         value = value.replace(/[^0-9]/g, "");
+      //       }
+
+      //       el.value = value.slice(0, arg);
+      //       context[expression] = value.slice(0, arg);
+      //     };
+      //   },
+      // });
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "Helfds321fd21321s321fdsfds",
+          slicenum: 3,
+          obj: {
+            a: 1,
+            b: 2,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

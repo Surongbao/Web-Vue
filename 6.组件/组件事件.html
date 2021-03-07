@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div :style="{fontSize: size + 'em'}">
+        <blog-post
+          v-for="post in postList"
+          :key="post.id"
+          :post="post"
+          @enlarge-font="size+=$event"
+        ></blog-post>
+      </div> -->
+
+      <!-- <my-cmp @cmp-event="size += $event"></my-cmp>
+      {{ size }} -->
+      <!-- <my-cmp @cmp-event="handleEvent"></my-cmp> -->
+
+      <!-- <my-input @focus.native="onFocus" @blur.native="onBlur"></my-input> -->
+
+      <!-- <base-input @focus="onFocus" @blur="onBlur"></base-input> -->
+
+      <!-- <my-model v-model="msg"></my-model> -->
+      <!-- <my-model :value="msg" @input="msg = $event"></my-model> -->
+
+      <!-- <my-checkbox v-model="checked"></my-checkbox> -->
+
+      <!-- <my-sync :value="msg" @input="msg = $event"></my-sync> -->
+
+      <!-- <my-sync :abc.sync="msg"></my-sync> -->
+
+      <!-- <my-sync :abc="checked" @update:checked="checked = $event"></my-sync> -->
+
+      <my-sync :person.sync="person" :value.sync="msg"></my-sync>
+    </div>
+
+    <script>
+      Vue.component("my-sync", {
+        props: ["person", "value"],
+        template: `
+          <div>
+           {{ person.name }}  
+           {{ person.age }}  
+           {{ person.gender }}  
+           {{ value }}
+          </div>
+        `,
+      });
+
+      // Vue.component("my-sync", {
+      //   props: {
+      //     abc: Boolean,
+      //   },
+      //   template: `
+      //     <div>
+      //       <input
+      //         type="checkbox"
+      //         :checked="abc"
+      //         @input="$emit('update:checked', $event.target.checked)"
+      //       />
+      //     </div>
+      //   `,
+      // });
+
+      // Vue.component("my-checkbox", {
+      //   props: ["checked"],
+      //   model: {
+      //     prop: "checked",
+      //     event: "change",
+      //   },
+      //   template: `
+      //     <label>
+      //       请选择：<input type="checkbox" :checked="checked" @change="$emit('change', $event.target.checked)" />
+      //     </label>
+      //   `,
+      // });
+
+      // Vue.component("my-model", {
+      //   props: ["value"],
+      //   template: `
+      //     <div>
+      //       <input type="text" :value="value" @input="$emit('input', $event.target.value)" />
+      //     </div>
+      //   `,
+      // });
+
+      // Vue.component("base-input", {
+      //   template: `
+      //     <label>
+      //       <input v-on="$listeners"/>
+      //     </label>
+      //   `,
+
+      //   mounted() {
+      //     console.log(this.$listeners);
+      //   },
+      // });
+
+      // Vue.component("my-input", {
+      //   template: `<input />`,
+      // });
+
+      // Vue.component("my-cmp", {
+      //   template: `
+      //     <button @click="$emit('cmp-event', 100, 200)">点击</button>
+      //   `,
+      //   // template: `
+      //   //   <button @click="handleClick">点击</button>
+      //   // `,
+
+      //   methods: {
+      //     handleClick() {
+      //       console.log("被点击了");
+      //     },
+      //   },
+      // });
+
+      // Vue.component("blog-post", {
+      //   props: {
+      //     post: Object,
+      //   },
+
+      //   template: `
+      //     <button>
+      //       <h3>{{ post.title }}</h3>
+      //       <div>{{ post.content }}</div>
+      //       <button @click="$emit('enlarge-font', 1)">放大字体</button>
+      //     </button>
+      //   `,
+      // });
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "Hello Vue",
+          checked: true,
+          person: {
+            name: "kevin",
+            age: 18,
+            gender: "male",
+          },
+          // size: 1,
+          // postList: [
+          //   { title: "标题1", content: "内容1", id: 0 },
+          //   { title: "标题2", content: "内容2", id: 1 },
+          //   { title: "标题3", content: "内容3", id: 2 },
+          //   { title: "标题4", content: "内容4", id: 3 },
+          //   { title: "标题5", content: "内容5", id: 4 },
+          // ],
+        },
+
+        methods: {
+          // onEnlargeFont(e) {
+          //   this.size += e;
+          // },
+
+          // handleEvent(params1, params2) {
+          //   // console.log("子组件的自定事件");
+          //   console.log(params1, params2);
+          // },
+
+          onFocus() {
+            console.log("聚焦了");
+          },
+          onBlur() {
+            console.log("失焦了");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

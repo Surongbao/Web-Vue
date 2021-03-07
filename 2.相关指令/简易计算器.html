@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model.number.lazy="firstNumber" />
+      <select v-model="selectSybol">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+      <input type="text" v-model.number.lazy="lastNumber" />
+      <button @click="addNumber">=</button>
+      <span>{{ result }}</span>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          firstNumber: 0,
+          lastNumber: 0,
+          selectSybol: "+",
+          result: 0,
+        },
+        methods: {
+          addNumber() {
+            if (this.selectSybol === "+") {
+              this.result = this.firstNumber + this.lastNumber;
+            } else if (this.selectSybol === "-") {
+              this.result = this.firstNumber - this.lastNumber;
+            } else if (this.selectSybol === "*") {
+              this.result = this.firstNumber * this.lastNumber;
+            } else if (this.selectSybol === "/") {
+              this.result = this.firstNumber / this.lastNumber;
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

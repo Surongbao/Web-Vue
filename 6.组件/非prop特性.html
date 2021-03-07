@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <my-cmp a="1" b="2" c="3" class="red" style="font-size: 20px"></my-cmp> -->
+
+      <my-cmp type="checkbox" a="1" b="2"></my-cmp>
+    </div>
+
+    <script>
+      Vue.component("my-cmp", {
+        inheritAttrs: false,
+
+        mounted() {
+          console.log(this.$attrs);
+        },
+
+        template: `
+          <label>
+            请选择：<input :type="$attrs.type"/>  
+            <div v-bind="$attrs"></div>
+          </label>
+        `,
+      });
+
+      // Vue.component("my-cmp", {
+      //   inheritAttrs: false,
+      //   props: ["a"],
+      //   template: `
+      //     <div b="10" class="blue" style="color: red">组件</div>
+      //   `,
+      // });
+
+      const vm = new Vue({
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>

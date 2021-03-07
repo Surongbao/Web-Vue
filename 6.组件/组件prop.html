@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .video-item {
+        float: left;
+        width: 50%;
+      }
+
+      .video-item .poster {
+        position: relative;
+        height: 106px;
+        margin-right: 6px;
+        margin-left: 6px;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .video-item .video-box .poster img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .video-item .poster .info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        padding-top: 7px;
+        padding-bottom: 3px;
+        padding-left: 10px;
+        color: #fff;
+        font-size: 12px;
+        background-image: linear-gradient(
+          rgba(33, 33, 33, 0),
+          rgba(33, 33, 33, 0.5)
+        );
+      }
+
+      .video-item .info div {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 10px;
+      }
+
+      .video-item .info svg {
+        margin-right: 3px;
+        width: 14px;
+        height: 14px;
+        fill: #fff;
+      }
+
+      .video-item .title {
+        margin: 6px 6px 10px 6px;
+        height: 38px;
+        line-height: 20px;
+        font-size: 13px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+    </style>
+    <script src="../vue.js"></script>
+    <script src="../axios.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <video-list :video-list="videoList"></video-list> -->
+      <!-- <my-cmp v-bind="person"></my-cmp> -->
+      <!-- <my-cmp
+        :name="person.name"
+        :age="person.age"
+        :gender="person.gender"
+      ></my-cmp> -->
+      <my-cmp></my-cmp>
+    </div>
+
+    <script>
+      Vue.component("my-cmp", {
+        // props: {
+        //   list: [Array, Number],
+        // },
+
+        props: {
+          list: {
+            type: Array,
+            // default: "lisi",
+            default() {
+              return [{ name: "zhangsan" }, { name: "lisi" }];
+            },
+            // required: true,
+
+            validator(prop) {
+              console.log(prop);
+            },
+          },
+        },
+
+        template: `
+          <div>
+            <ul>
+              <li v-for="item in list">{{ item.name }}</li>  
+            </ul>  
+          </div>
+        `,
+      });
+
+      // Vue.component("my-cmp", {
+      //   props: ["name", "age", "gender"],
+      //   template: `
+      //     <div>{{ name }} - {{ age }} - {{ gender }}</div>
+      //   `,
+      // });
+
+      // Vue.component("video-list", {
+      //   props: ["videoList"],
+      //   template: `
+      //     <div video-list>
+      //       <video-item
+      //         v-for="video in videoList"
+      //         :key="video.id"
+      //         v-bind="video"
+      //       ></video-item>
+      //     </div>
+      //   `,
+      //   // template: `
+      //   //   <div video-list>
+      //   //     <video-item
+      //   //       v-for="video in videoList"
+      //   //       :key="video.id"
+      //   //       :poster="video.poster"
+      //   //       :title="video.title"
+      //   //       :play="video.play"
+      //   //       :rank="video.rank"
+      //   //     ></video-item>
+      //   //   </div>
+      //   // `
+      // });
+
+      // Vue.component("video-item", {
+      //   props: ["poster", "title", "play", "rank"],
+      //   template: `
+      //       <div class="video-item">
+      //         <div class="poster">
+      //           <img
+      //             :src="poster"
+      //             :alt="title"
+      //           />
+      //           <div class="info">
+      //             <div class="play">{{ play }}</div>
+      //             <div class="rank">{{ rank }}</div>
+      //           </div>
+      //         </div>
+      //         <div class="title">{{ title }}</div>
+      //       </div>
+      //     `,
+      // });
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          // videoList: [],
+          // person: {
+          //   name: "kevin",
+          //   age: 18,
+          //   gender: "male",
+          // },
+
+          list: [{ name: "kevin" }, { name: "steven" }],
+          // list: "3",
+        },
+
+        // created() {
+        //   axios
+        //     .get("https://developer.duyiedu.com/vue/bz/video", {
+        //       params: {
+        //         start: 0,
+        //         offset: 20,
+        //       },
+        //     })
+        //     .then((resp) => {
+        //       this.videoList = resp.data.data;
+        //     });
+        // },
+      });
+    </script>
+  </body>
+</html>

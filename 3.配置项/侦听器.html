@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">{{ obj }}</div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello vue",
+          obj: {
+            a: 1,
+            b: 2,
+            c: 3,
+          },
+        },
+
+        methods: {
+          handleChange() {
+            console.log("字符串：数据改变了");
+          },
+        },
+        watch: {
+          // msg(newVal, oldVal) {
+          //   console.log("属性变化了", newVal, oldVal);
+          // },
+          // msg: "handleChange",
+          // obj: {
+          //   handler(newVal, oldVal) {
+          //     console.log("数据变化了", newVal, oldVal);
+          //   },
+          //   deep: true,
+          //   immediate: true,
+          // },
+          // msg: [
+          //   function () {
+          //     console.log("函数：数据变化了");
+          //   },
+          //   "handleChange",
+          //   {
+          //     handler() {
+          //       console.log("对象：数据变化了");
+          //     },
+          //   },
+          // ],
+          // "obj.a"() {
+          //   console.log("a属性变化了");
+          // },
+        },
+      });
+
+      // vm.$watch(
+      //   "msg",
+      //   () => {
+      //     console.log("msg的值改变了");
+      //   },
+      //   {
+      //     deep: true,
+      //     immediate: true,
+      //   }
+      // );
+
+      // vm.$watch("obj.a", {
+      //   handler() {
+      //     console.log("a的值改变了");
+      //   },
+      //   deep: true,
+      //   immediate: true,
+      // });
+
+      // vm.$watch(
+      //   function () {
+      //     return this.msg + this.obj.a;
+      //   },
+      //   function () {
+      //     console.log("多个数据的值变化了");
+      //   },
+      //   {
+      //     deep: true,
+      //     immediate: true,
+      //   }
+      // );
+
+      var unwatch = vm.$watch(
+        "msg",
+        function () {
+          if (unwatch) {
+            unwatch();
+            return;
+          }
+          console.log("msg的值改变了");
+        },
+        {
+          immediate: true,
+        }
+      );
+    </script>
+  </body>
+</html>

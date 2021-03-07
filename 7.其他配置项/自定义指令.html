@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-focus="msg" v-if="show" />
+    </div>
+
+    <script>
+      Vue.directive("focus", {
+        bind(el, binding, vnode, oldVnode) {
+          console.log("bind");
+          console.log(el);
+          console.log(binding);
+          console.log(vnode);
+          console.log(oldVnode);
+        },
+        inserted(el, binding) {
+          // console.log("inserted");
+          // console.log(el, binding);
+        },
+        update(el, binding) {
+          // console.log("update");
+          // console.log(el, binding);
+        },
+        componentUpdated(el, binding) {
+          // console.log("componentUpdated");
+          // console.log(el, binding);
+        },
+        unbind(el, binding) {
+          // console.log("unbind");
+          // console.log(el, binding);
+        },
+      });
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "Hello Vue",
+          show: true,
+        },
+        // directives: {
+        //   指令名字: {},
+        // },
+      });
+    </script>
+  </body>
+</html>

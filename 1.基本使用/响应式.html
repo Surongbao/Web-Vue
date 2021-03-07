@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="../vue.js"></script>
+
+  <div id="app">
+    <!-- {{ msg }} -->
+    {{ arr }}
+    <!-- {{ obj }} -->
+    <!-- {{ a }} -->
+    <!-- {{ b }} -->
+    <!-- {{ c }} -->
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        // msg: "Hello Vue",
+        obj: {
+          a: 1,
+          b: 2
+        },
+        arr: [1, 2, 3],
+        a: undefined,
+        b: null,
+        c: 0
+      },
+    });
+
+    // vm.msg = "Hello Kevin";
+    // console.log(vm.msg);
+    // console.log(vm.$el.innerText);
+
+    // vm.$nextTick(function () {
+    //   console.log(this);
+    //   console.log(this.msg);
+    //   console.log(this.$el.innerText);
+    // });
+
+    // vm.$nextTick().then(() => {
+    //   console.log(this);
+    //   console.log(vm.msg);
+    //   console.log(vm.$el.innerText);
+    // })
+
+    // Vue.nextTick().then(() => {
+    //   console.log(this);
+    //   console.log(vm.msg);
+    //   console.log(vm.$el.innerText);
+    // })
+
+    // Vue.nextTick(function () {
+    //   console.log(this);
+    //   console.log(vm.msg);
+    //   console.log(vm.$el.innerText);
+    // });
+  </script>
+
+</body>
+
+</html>

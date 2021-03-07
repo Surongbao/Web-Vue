@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- {{ count }} -->
+      <!-- <button @click="count++">father点击</button>
+      <my-cmp :count="count" :title="title"></my-cmp> -->
+
+      <my-array :array="array" :title="title"></my-array>
+      <!-- {{ array }} -->
+      <!-- <button @click="array.push(4)">father点击</button> -->
+    </div>
+
+    <script>
+      Vue.component("my-array", {
+        // props: {
+        //   array: Array,
+        // },
+
+        props: ["title"],
+
+        data() {
+          return {
+            myTitle: this.title,
+            // myArr: [...this.array],
+          };
+        },
+
+        computed: {
+          reverseTitle() {
+            return this.myTitle + "1111";
+          },
+        },
+
+        template: `
+          <div>
+            {{ reverseTitle }}
+            {{ this.title }}
+          </div>
+        `,
+        // template: `
+        //   <div>
+        //     {{ myArr }}
+        //     <button @click="myArr.push(5)">son点击</button>
+        //   </div>
+        // `,
+      });
+
+      Vue.component("my-cmp", {
+        props: ["count"],
+
+        data() {
+          return {
+            myCount: this.count,
+          };
+        },
+        template: `
+
+          <div>
+            {{ myCount }}
+            <button @click="myCount++">son点击</button>
+          </div>
+        `,
+      });
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          title: "                  Hello Vue",
+          count: 0,
+          array: [1, 2, 3],
+        },
+      });
+    </script>
+  </body>
+</html>
